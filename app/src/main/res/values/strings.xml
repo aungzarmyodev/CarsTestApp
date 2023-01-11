@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CarsTestapp</string>
+    <string name="label_toolbar_title">Cars</string>
 </resources>
