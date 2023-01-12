@@ -15,6 +15,7 @@ import javax.inject.Inject
 class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var carList = mutableListOf<CarModel>()
+    private val baseUrl = "https://cars-sevenpeaks.web.app/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CarsListViewHolder(
@@ -53,7 +54,8 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                     val currentYear = Calendar.getInstance().get(Calendar.YEAR)
                     val simpleDateFormat = SimpleDateFormat("dd.mm.yyyy HH:mm", Locale.getDefault())
                     val currentYearFormat = SimpleDateFormat("dd MMMM, HH:mm", Locale.getDefault())
-                    val differentYearHourFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
+                    val differentYearHourFormat =
+                        SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
                     val carModelDate = simpleDateFormat.parse(carModel?.dateTime!!)
                     if (carModelDate != null) {
                         val calendar = Calendar.getInstance()
@@ -69,8 +71,9 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                 }
             }
 
+            val imageUrl = baseUrl + carModel?.image
             Glide.with(binding.root.context)
-                .load(carModel?.image)
+                .load(imageUrl)
                 .placeholder(R.drawable.ic_default_car_icon)
                 .error(R.drawable.ic_default_car_icon)
                 .into(binding.ivCarLogo)

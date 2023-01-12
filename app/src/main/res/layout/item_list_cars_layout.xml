@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_car_item_list"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="5:4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,8 +19,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,14 +32,16 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:paddingBottom="8dp"
-            tools:text="Create for almost any"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Create for almost any" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_date"
@@ -47,12 +49,14 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            tools:text="29 November 2017, 15:12"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/date_text_color"
             app:layout_constraintBottom_toTopOf="@+id/tv_ingress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="29 November 2017, 15:12" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_ingress"
@@ -61,14 +65,13 @@
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.3"
             android:maxLines="3"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            tools:text="Don't leave anything to chance. Whether it comes to comfort, style, or dynamics, the Audi Q5 will win you over from the first moment."
+            android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Don't leave anything to chance. Whether it comes to comfort, style, or dynamics, the Audi Q5 will win you over from the first moment." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
