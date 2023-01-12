@@ -15,8 +15,6 @@ import javax.inject.Inject
 class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var carList = mutableListOf<CarModel>()
-    private val baseUrl = "https://cars-sevenpeaks.web.app/"
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CarsListViewHolder(
             ItemListCarsLayoutBinding.inflate(
@@ -71,9 +69,8 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                 }
             }
 
-            val imageUrl = baseUrl + carModel?.image
             Glide.with(binding.root.context)
-                .load(imageUrl)
+                .load("https://cars-sevenpeaks.web.app/${carModel?.image}")
                 .placeholder(R.drawable.ic_default_car_icon)
                 .error(R.drawable.ic_default_car_icon)
                 .into(binding.ivCarLogo)
