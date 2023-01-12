@@ -1,16 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+
 }
 
 android {
     namespace 'com.sevenpeakssoftware.aungzarmyo'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.sevenpeakssoftware.aungzarmyo"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -34,6 +37,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -48,8 +55,21 @@ dependencies {
 
     // splash screen
     implementation 'androidx.core:core-splashscreen:1.0.0'
+    // swiperefreshlayout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     // glide for image
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    // dagger hilt for dependency injection
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    // retrofit
+    implementation'com.squareup.retrofit2:retrofit:2.9.0'
+    // Gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // viewmodel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    // coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'androidx.activity:activity-ktx:1.6.1'
 }
