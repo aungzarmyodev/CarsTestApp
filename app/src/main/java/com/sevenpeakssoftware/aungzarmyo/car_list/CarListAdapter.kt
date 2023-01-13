@@ -1,5 +1,6 @@
 package com.sevenpeakssoftware.aungzarmyo.car_list
 
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -49,20 +50,10 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
 
             if (!carModel?.dateTime.isNullOrEmpty()) {
                 try {
-                    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
                     val simpleDateFormat = SimpleDateFormat("dd.mm.yyyy HH:mm", Locale.getDefault())
-                    val currentYearFormat = SimpleDateFormat("dd MMMM, HH:mm", Locale.getDefault())
-                    val differentYearHourFormat =
-                        SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
                     val carModelDate = simpleDateFormat.parse(carModel?.dateTime!!)
                     if (carModelDate != null) {
-                        val calendar = Calendar.getInstance()
-                        calendar.time = carModelDate
-                        if (calendar.get(Calendar.YEAR) == currentYear) {
-                            binding.tvDate.text = currentYearFormat.format(carModelDate)
-                        } else {
-                            binding.tvDate.text = differentYearHourFormat.format(carModelDate)
-                        }
+                        binding.tvDate.text = dateFormat(carModelDate).format(carModelDate)
                     }
                 } catch (e: ParseException) {
                     Log.e("TAG", e.message.toString())
@@ -74,6 +65,25 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                 .placeholder(R.drawable.ic_default_car_icon)
                 .error(R.drawable.ic_default_car_icon)
                 .into(binding.ivCarLogo)
+        }
+
+        private fun dateFormat(date: Date): SimpleDateFormat {
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            return if (calendar.get(Calendar.YEAR) == currentYear) {
+                if (DateFormat.is24HourFormat(binding.root.context)) {
+                    SimpleDateFormat("dd MMMM, HH:mm", Locale.getDefault())
+                } else {
+                    SimpleDateFormat("dd MMMM, hh:mm aa", Locale.getDefault())
+                }
+            } else {
+                if (DateFormat.is24HourFormat(binding.root.context)) {
+                    SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
+                } else {
+                    SimpleDateFormat("dd MMMM yyyy, hh:mm aa", Locale.getDefault())
+                }
+            }
         }
     }
 }
