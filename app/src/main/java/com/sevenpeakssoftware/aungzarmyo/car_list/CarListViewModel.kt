@@ -14,17 +14,28 @@ import javax.inject.Inject
 class CarListViewModel @Inject constructor(private val carListRepository: CarListRepository) :
     ViewModel() {
 
-    private var mutableLiveData = MutableLiveData<NetworkResult<CarModelResponse>>()
-    val liveData: LiveData<NetworkResult<CarModelResponse>> = mutableLiveData
+    private var mutableLiveData = MutableLiveData<NetworkResult<List<CarModel>>>()
+    val liveData: LiveData<NetworkResult<List<CarModel>>> = mutableLiveData
 
     fun getCarList() {
         viewModelScope.launch {
             try {
                 val result = carListRepository.getCarList()
-                mutableLiveData.postValue(NetworkResult.Success(result))
+                mutableLiveData.postValue(NetworkResult.Success(result.content))
             } catch (e: Exception) {
-                mutableLiveData.postValue(NetworkResult.Error(e))
+                if (carListRepository.getCarListFromLocalDatabase().isNotEmpty()) {
+                    mutableLiveData.postValue(NetworkResult.Success(carListRepository.getCarListFromLocalDatabase()))
+                } else {
+                    mutableLiveData.postValue(NetworkResult.Error(e))
+                }
             }
+        }
+    }
+
+    fun saveInLocal(carModel: CarModel) {
+        viewModelScope.launch {
+            carListRepository.saveInLocal(carModel)
+
         }
     }
 }

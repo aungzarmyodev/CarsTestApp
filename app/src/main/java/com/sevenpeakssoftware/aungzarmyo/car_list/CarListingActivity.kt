@@ -1,7 +1,5 @@
 package com.sevenpeakssoftware.aungzarmyo.car_list
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -63,12 +61,15 @@ class CarListingActivity : AppCompatActivity() {
             binding.swipeRefreshLayout.isRefreshing = false
             binding.progressBar.hide()
 
-            val carModelResponse = result?.data
+            val carList = result?.data
             when (result.status) {
                 Status.SUCCESS -> {
-                    if (carModelResponse != null && carModelResponse.content.isNotEmpty()) {
+                    if (!carList.isNullOrEmpty()) {
                         binding.recyclerView.visibility = View.VISIBLE
-                        adapter.addData(carModelResponse.content)
+                        adapter.addData(carList)
+                        carList.forEach { carModel ->
+                            viewModel.saveInLocal(carModel)
+                        }
                     }
                 }
                 Status.ERROR -> {
