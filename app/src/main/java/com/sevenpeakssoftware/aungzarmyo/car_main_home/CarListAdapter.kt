@@ -61,7 +61,7 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                             .format(carModelDate)
                     }
                 } catch (e: ParseException) {
-                    Log.e("TAG", e.message.toString())
+                    Log.e(TAG, e.message.toString())
                 }
             }
 
@@ -71,5 +71,9 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                 binding.ivCarLogo
             )
         }
+    }
+
+    companion object {
+        private const val TAG = "Car"
     }
 }

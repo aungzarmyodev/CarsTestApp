@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.format.DateFormat
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sevenpeakssoftware.aungzarmyo.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,10 +32,12 @@ object Utils {
 
     fun setImage(context: Context, imageUri: String?, imageView: AppCompatImageView) {
 
+        // image caching
         Glide.with(context)
             .load(imageUri)
             .placeholder(R.drawable.ic_default_car_icon)
             .error(R.drawable.ic_default_car_icon)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(imageView)
     }
 }
