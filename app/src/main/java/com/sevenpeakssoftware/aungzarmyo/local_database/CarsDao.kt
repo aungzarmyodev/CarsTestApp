@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sevenpeakssoftware.aungzarmyo.car_list.CarModel
+import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModel
 
 @Dao
 interface CarsDao {

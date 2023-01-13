@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sevenpeakssoftware.aungzarmyo.car_list.CarModel
+import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModel
 
 @Database(entities = [CarModel::class], version = 1, exportSchema = false)
 abstract class CarRoomDataBase : RoomDatabase() {

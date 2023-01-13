@@ -1,4 +1,4 @@
-package com.sevenpeakssoftware.aungzarmyo.car_list
+package com.sevenpeakssoftware.aungzarmyo.car_main_home
 
 import android.os.Bundle
 import android.os.Handler
@@ -41,6 +41,7 @@ class CarListingActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolBar)
         initView()
         initObservers()
+        initOnClickListener()
     }
 
     private fun initView() {
@@ -100,6 +101,23 @@ class CarListingActivity : AppCompatActivity() {
                 Status.LOADING -> {
 
                 }
+            }
+        }
+    }
+
+    private fun initOnClickListener() {
+
+        adapter.itemClickLiveData.observe(this) {
+            it?.let {
+                val snackBar = Snackbar.make(
+                    binding.rootView,
+                    getString(R.string.label_click_car_item),
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                snackBar.setAction(
+                    getString(R.string.label_ok)
+                ) { snackBar.dismiss() }
+                snackBar.show()
             }
         }
     }

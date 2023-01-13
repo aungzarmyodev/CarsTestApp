@@ -1,6 +1,6 @@
 package com.sevenpeakssoftware.aungzarmyo.network
 
-import com.sevenpeakssoftware.aungzarmyo.car_list.CarModelResponse
+import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModelResponse
 import retrofit2.http.GET
 
 interface CarApi {

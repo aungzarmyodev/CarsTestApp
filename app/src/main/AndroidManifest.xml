@@ -17,7 +17,7 @@
         android:theme="@style/Theme.CarsTestApp"
         tools:targetApi="31">
         <activity
-            android:name=".car_list.CarListingActivity"
+            android:name=".car_main_home.CarListingActivity"
             android:theme="@style/MySplashScreenTheme"
             android:screenOrientation="portrait"
             android:exported="true">

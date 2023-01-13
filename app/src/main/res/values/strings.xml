@@ -4,4 +4,5 @@
     <string name="label_unknown_error">Try again!</string>
     <string name="label_no_network_error">Please check your internet connection.</string>
     <string name="label_ok">OK</string>
+    <string name="label_click_car_item">Welcome from next stage.</string>
 </resources>

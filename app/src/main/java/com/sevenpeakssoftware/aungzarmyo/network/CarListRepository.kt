@@ -1,7 +1,7 @@
 package com.sevenpeakssoftware.aungzarmyo.network
 
-import com.sevenpeakssoftware.aungzarmyo.car_list.CarModel
-import com.sevenpeakssoftware.aungzarmyo.car_list.CarModelResponse
+import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModel
+import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModelResponse
 import com.sevenpeakssoftware.aungzarmyo.local_database.CarsDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

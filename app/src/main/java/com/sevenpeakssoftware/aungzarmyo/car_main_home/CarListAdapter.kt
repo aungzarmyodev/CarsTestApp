@@ -1,9 +1,10 @@
-package com.sevenpeakssoftware.aungzarmyo.car_list
+package com.sevenpeakssoftware.aungzarmyo.car_main_home
 
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sevenpeakssoftware.aungzarmyo.R
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var carList = mutableListOf<CarModel>()
+    val itemClickLiveData = MutableLiveData<CarModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CarsListViewHolder(
             ItemListCarsLayoutBinding.inflate(
@@ -29,6 +31,9 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CarsListViewHolder) {
             holder.onBind(carList[position])
+            holder.itemView.setOnClickListener {
+                itemClickLiveData.postValue(carList[position])
+            }
         }
     }
 
