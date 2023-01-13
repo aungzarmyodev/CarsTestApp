@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface CarApi {
 
-    @GET("/carlist")
+    @GET("carlist")
     suspend fun getCarList() : CarModelResponse
 }

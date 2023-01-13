@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CarsTestApp</string>
+    <string name="app_name">CarsApp</string>
     <string name="label_toolbar_title">Cars</string>
     <string name="label_unknown_error">Try again!</string>
     <string name="label_no_network_error">Please check your internet connection.</string>

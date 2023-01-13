@@ -1,5 +1,6 @@
 package com.sevenpeakssoftware.aungzarmyo.network
 
+import com.sevenpeakssoftware.aungzarmyo.utils.Const
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,13 +14,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val baseUrl = "https://cars-sevenpeaks.web.app"
-
     @Provides
     @Singleton
     fun provideNetworkService(): CarApi {
 
-        return Retrofit.Builder().baseUrl(baseUrl)
+        return Retrofit.Builder().baseUrl(Const.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CarApi::class.java)

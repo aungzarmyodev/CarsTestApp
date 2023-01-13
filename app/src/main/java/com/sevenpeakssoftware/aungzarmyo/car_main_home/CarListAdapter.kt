@@ -1,13 +1,12 @@
 package com.sevenpeakssoftware.aungzarmyo.car_main_home
 
-import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.sevenpeakssoftware.aungzarmyo.R
+import com.sevenpeakssoftware.aungzarmyo.utils.Const
+import com.sevenpeakssoftware.aungzarmyo.utils.Utils
 import com.sevenpeakssoftware.aungzarmyo.databinding.ItemListCarsLayoutBinding
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -58,37 +57,19 @@ class CarListAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.V
                     val simpleDateFormat = SimpleDateFormat("dd.mm.yyyy HH:mm", Locale.getDefault())
                     val carModelDate = simpleDateFormat.parse(carModel?.dateTime!!)
                     if (carModelDate != null) {
-                        binding.tvDate.text = dateFormat(carModelDate).format(carModelDate)
+                        binding.tvDate.text = Utils.dateFormat(binding.root.context, carModelDate)
+                            .format(carModelDate)
                     }
                 } catch (e: ParseException) {
                     Log.e("TAG", e.message.toString())
                 }
             }
 
-            Glide.with(binding.root.context)
-                .load("https://cars-sevenpeaks.web.app/${carModel?.image}")
-                .placeholder(R.drawable.ic_default_car_icon)
-                .error(R.drawable.ic_default_car_icon)
-                .into(binding.ivCarLogo)
-        }
-
-        private fun dateFormat(date: Date): SimpleDateFormat {
-            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-            val calendar = Calendar.getInstance()
-            calendar.time = date
-            return if (calendar.get(Calendar.YEAR) == currentYear) {
-                if (DateFormat.is24HourFormat(binding.root.context)) {
-                    SimpleDateFormat("dd MMMM, HH:mm", Locale.getDefault())
-                } else {
-                    SimpleDateFormat("dd MMMM, hh:mm aa", Locale.getDefault())
-                }
-            } else {
-                if (DateFormat.is24HourFormat(binding.root.context)) {
-                    SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
-                } else {
-                    SimpleDateFormat("dd MMMM yyyy, hh:mm aa", Locale.getDefault())
-                }
-            }
+            Utils.setImage(
+                binding.root.context,
+                "${Const.BASE_URL}${carModel?.image}",
+                binding.ivCarLogo
+            )
         }
     }
 }
