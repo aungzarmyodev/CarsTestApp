@@ -1,5 +1,7 @@
 package com.sevenpeakssoftware.aungzarmyo.car_list
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +17,7 @@ import com.sevenpeakssoftware.aungzarmyo.network.Status
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class CarListingActivity : AppCompatActivity() {
@@ -66,8 +69,6 @@ class CarListingActivity : AppCompatActivity() {
                     if (carModelResponse != null && carModelResponse.content.isNotEmpty()) {
                         binding.recyclerView.visibility = View.VISIBLE
                         adapter.addData(carModelResponse.content)
-                    } else {
-                        binding.recyclerView.visibility = View.GONE
                     }
                 }
                 Status.ERROR -> {

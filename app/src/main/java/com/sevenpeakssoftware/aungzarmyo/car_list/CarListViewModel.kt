@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sevenpeakssoftware.aungzarmyo.network.CarListRepository
-import com.sevenpeakssoftware.aungzarmyo.network.Result
+import com.sevenpeakssoftware.aungzarmyo.network.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,16 +14,16 @@ import javax.inject.Inject
 class CarListViewModel @Inject constructor(private val carListRepository: CarListRepository) :
     ViewModel() {
 
-    private var mutableLiveData = MutableLiveData<Result<CarModelResponse>>()
-    val liveData: LiveData<Result<CarModelResponse>> = mutableLiveData
+    private var mutableLiveData = MutableLiveData<NetworkResult<CarModelResponse>>()
+    val liveData: LiveData<NetworkResult<CarModelResponse>> = mutableLiveData
 
     fun getCarList() {
         viewModelScope.launch {
             try {
                 val result = carListRepository.getCarList()
-                mutableLiveData.postValue(Result.Success(result))
+                mutableLiveData.postValue(NetworkResult.Success(result))
             } catch (e: Exception) {
-                mutableLiveData.postValue(Result.Error(e))
+                mutableLiveData.postValue(NetworkResult.Error(e))
             }
         }
     }
