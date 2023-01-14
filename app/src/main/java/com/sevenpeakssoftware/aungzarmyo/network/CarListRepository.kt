@@ -19,7 +19,9 @@ class CarListRepository @Inject constructor(
     }
 
     suspend fun saveInLocal(carModel: CarModel) {
-        carsDao.addCar(carModel)
+        return withContext(Dispatchers.IO) {
+            carsDao.addCar(carModel)
+        }
     }
 
     suspend fun getCarListFromLocalDatabase(): List<CarModel> {

@@ -24,7 +24,7 @@ class CarListViewModel @Inject constructor(private val carListRepository: CarLis
                 mutableLiveData.postValue(NetworkResult.Success(result.content))
             } catch (e: Exception) {
                 if (carListRepository.getCarListFromLocalDatabase().isNotEmpty()) {
-                    mutableLiveData.postValue(NetworkResult.Success(carListRepository.getCarListFromLocalDatabase()))
+                    mutableLiveData.postValue(NetworkResult.Success(carListRepository.getCarListFromLocalDatabase().reversed()))
                 } else {
                     mutableLiveData.postValue(NetworkResult.Error(e))
                 }
@@ -32,10 +32,11 @@ class CarListViewModel @Inject constructor(private val carListRepository: CarLis
         }
     }
 
-    fun saveInLocal(carModel: CarModel) {
-        viewModelScope.launch {
-            carListRepository.saveInLocal(carModel)
-
+    fun saveInLocal(carModel: CarModel?) {
+        carModel?.let {
+            viewModelScope.launch {
+                carListRepository.saveInLocal(carModel)
+            }
         }
     }
 }
