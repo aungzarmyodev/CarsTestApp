@@ -3,7 +3,6 @@ package com.sevenpeakssoftware.aungzarmyo
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModel
 import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModelResponse
-import com.sevenpeakssoftware.aungzarmyo.local_database.CarsDao
 import com.sevenpeakssoftware.aungzarmyo.network.CarListRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
@@ -14,6 +13,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.HttpException
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -34,6 +34,9 @@ class CarListRepositoryTest {
     @Mock
     lateinit var mockCarModel : CarModel
 
+    @Mock
+    lateinit var mockException : HttpException
+
     @Test
     fun getCarListReturnSuccessTest() {
 
@@ -47,14 +50,14 @@ class CarListRepositoryTest {
     }
 
     @Test
-    fun getCarListReturnErrorTest() {
+    fun getCarListReturnFailTest() {
 
         testCoroutineRule.runBlockingTest {
             Mockito.`when`(repository.getCarList()).thenAnswer {
-                Result.success(null)
+                Result.failure<HttpException>(mockException)
             }
             Assert.assertNotNull(repository.getCarList())
-            Assert.assertNotEquals(Result.success(carModelResponse), repository.getCarList())
+            Assert.assertEquals( Result.failure<HttpException>(mockException), repository.getCarList())
         }
     }
 
@@ -71,14 +74,14 @@ class CarListRepositoryTest {
     }
 
     @Test
-    fun getCarListFromLocalReturnErrorTest() {
+    fun getCarListFromLocalReturnFailTest() {
 
         testCoroutineRule.runBlockingTest {
             Mockito.`when`(repository.getCarListFromLocalDatabase()).thenAnswer {
-                Result.success(null)
+                Result.failure<HttpException>(mockException)
             }
             Assert.assertNotNull(repository.getCarListFromLocalDatabase())
-            Assert.assertNotEquals(Result.success(carModelResponse), repository.getCarListFromLocalDatabase())
+            Assert.assertEquals(Result.failure<HttpException>(mockException), repository.getCarListFromLocalDatabase())
         }
     }
 
