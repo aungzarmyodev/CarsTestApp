@@ -74,6 +74,8 @@ class CarListingActivity : AppCompatActivity() {
                     }
                 }
                 Status.ERROR -> {
+                    // get data from local database
+                    viewModel.getCarListFromLocalDatabase()
                     when (result?.error) {
                         is IOException -> {
                             val snackBar = Snackbar.make(
@@ -101,6 +103,13 @@ class CarListingActivity : AppCompatActivity() {
                 Status.LOADING -> {
 
                 }
+            }
+        }
+
+        viewModel.liveDataLocalDatabase.observe(this) { carList ->
+            if (carList.isNotEmpty()) {
+                binding.recyclerView.visibility = View.VISIBLE
+                adapter.addData(carList)
             }
         }
     }
