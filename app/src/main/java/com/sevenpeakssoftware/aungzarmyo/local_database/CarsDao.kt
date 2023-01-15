@@ -14,4 +14,7 @@ interface CarsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCar(carModel: CarModel)
+
+    @Query("SELECT * FROM car WHERE id LIKE :carModelId")
+    suspend fun getCarModelById(carModelId : Int?) : CarModel
 }

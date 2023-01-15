@@ -5,6 +5,7 @@ import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModel
 import com.sevenpeakssoftware.aungzarmyo.car_main_home.CarModelResponse
 import com.sevenpeakssoftware.aungzarmyo.network.CarListRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +24,7 @@ class CarListRepositoryTest {
     val testRule: TestRule = InstantTaskExecutorRule()
 
     @get:Rule
-    val testCoroutineRule = TestCoroutineRule()
+    val testCoroutineRule = MainCoroutineRule()
 
     @Mock
     lateinit var repository: CarListRepository
@@ -32,66 +33,56 @@ class CarListRepositoryTest {
     lateinit var carModelResponse: CarModelResponse
 
     @Mock
-    lateinit var mockCarModel : CarModel
+    lateinit var mockCarModel: CarModel
 
     @Mock
-    lateinit var mockException : HttpException
+    lateinit var mockException: HttpException
 
     @Test
-    fun getCarListReturnSuccessTest() {
-
-        testCoroutineRule.runBlockingTest {
-            Mockito.`when`(repository.getCarList()).thenAnswer {
-                Result.success(carModelResponse)
-            }
-            Assert.assertNotNull(repository.getCarList())
-            Assert.assertEquals(Result.success(carModelResponse), repository.getCarList())
+    fun getCarListReturnSuccessTest() = runTest {
+        Mockito.`when`(repository.getCarList()).thenAnswer {
+            Result.success(carModelResponse)
         }
+        Assert.assertNotNull(repository.getCarList())
+        Assert.assertEquals(Result.success(carModelResponse), repository.getCarList())
     }
 
     @Test
-    fun getCarListReturnFailTest() {
+    fun getCarListReturnFailTest() = runTest{
 
-        testCoroutineRule.runBlockingTest {
-            Mockito.`when`(repository.getCarList()).thenAnswer {
-                Result.failure<HttpException>(mockException)
-            }
-            Assert.assertNotNull(repository.getCarList())
-            Assert.assertEquals( Result.failure<HttpException>(mockException), repository.getCarList())
+        Mockito.`when`(repository.getCarList()).thenAnswer {
+            Result.failure<HttpException>(mockException)
         }
+        Assert.assertNotNull(repository.getCarList())
+        Assert.assertEquals(
+            Result.failure<HttpException>(mockException),
+            repository.getCarList()
+        )
     }
 
     @Test
-    fun getCarListFromLocalReturnSuccessTest() {
+    fun getCarListFromLocalReturnSuccessTest() = runTest {
 
-        testCoroutineRule.runBlockingTest {
-            Mockito.`when`(repository.getCarListFromLocalDatabase()).thenAnswer {
-                Result.success(carModelResponse)
-            }
-            Assert.assertNotNull(repository.getCarListFromLocalDatabase())
-            Assert.assertEquals(Result.success(carModelResponse), repository.getCarListFromLocalDatabase())
+        Mockito.`when`(repository.getCarListFromLocalDatabase()).thenAnswer {
+            Result.success(carModelResponse)
         }
+        Assert.assertNotNull(repository.getCarListFromLocalDatabase())
+        Assert.assertEquals(
+            Result.success(carModelResponse),
+            repository.getCarListFromLocalDatabase()
+        )
     }
 
     @Test
-    fun getCarListFromLocalReturnFailTest() {
+    fun getCarListFromLocalReturnFailTest() = runTest {
 
-        testCoroutineRule.runBlockingTest {
-            Mockito.`when`(repository.getCarListFromLocalDatabase()).thenAnswer {
-                Result.failure<HttpException>(mockException)
-            }
-            Assert.assertNotNull(repository.getCarListFromLocalDatabase())
-            Assert.assertEquals(Result.failure<HttpException>(mockException), repository.getCarListFromLocalDatabase())
+        Mockito.`when`(repository.getCarListFromLocalDatabase()).thenAnswer {
+            Result.failure<HttpException>(mockException)
         }
-    }
-
-    @Test
-    fun insertCarModelTest() {
-
-        mockCarModel.id = 119302
-        mockCarModel.dateTime = "25.05.2018 14:13"
-        mockCarModel.title = "Q7 - Greatness starts, when you don't stop."
-        mockCarModel.image = "audi_q7.jpg"
-        // need to edit
+        Assert.assertNotNull(repository.getCarListFromLocalDatabase())
+        Assert.assertEquals(
+            Result.failure<HttpException>(mockException),
+            repository.getCarListFromLocalDatabase()
+        )
     }
 }

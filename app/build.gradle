@@ -45,8 +45,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
@@ -55,9 +55,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.10.0'
     testImplementation 'org.mockito:mockito-inline:2.21.0'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation 'org.mockito:mockito-android:3.10.0'
-
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
     // splash screen
     implementation 'androidx.core:core-splashscreen:1.0.0'
     // swiperefreshlayout

@@ -16,6 +16,9 @@ class CarListViewModel @Inject constructor(private val carListRepository: CarLis
 
     private var mutableLiveData = MutableLiveData<NetworkResult<List<CarModel>>>()
     val liveData: LiveData<NetworkResult<List<CarModel>>> = mutableLiveData
+    private var mutableLiveDataLocalDatabase = MutableLiveData<List<CarModel>>()
+    val liveDataLocalDatabase: LiveData<List<CarModel>> =
+        mutableLiveDataLocalDatabase
 
     fun getCarList() {
         viewModelScope.launch {
@@ -23,11 +26,19 @@ class CarListViewModel @Inject constructor(private val carListRepository: CarLis
                 val result = carListRepository.getCarList()
                 mutableLiveData.postValue(NetworkResult.Success(result.content))
             } catch (e: Exception) {
-                if (carListRepository.getCarListFromLocalDatabase().isNotEmpty()) {
-                    mutableLiveData.postValue(NetworkResult.Success(carListRepository.getCarListFromLocalDatabase().reversed()))
-                } else {
-                    mutableLiveData.postValue(NetworkResult.Error(e))
-                }
+                mutableLiveData.postValue(NetworkResult.Error(e))
+            }
+        }
+    }
+
+    fun getCarListFromLocalDatabase() {
+        viewModelScope.launch {
+            if (carListRepository.getCarListFromLocalDatabase().isNotEmpty()) {
+                mutableLiveDataLocalDatabase.postValue(
+                    carListRepository.getCarListFromLocalDatabase().reversed()
+                )
+            } else {
+                mutableLiveDataLocalDatabase.postValue(emptyList())
             }
         }
     }
