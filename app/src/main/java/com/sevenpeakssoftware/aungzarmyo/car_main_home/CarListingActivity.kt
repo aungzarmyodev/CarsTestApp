@@ -71,11 +71,23 @@ class CarListingActivity : AppCompatActivity() {
                         carList.forEach { carModel ->
                             viewModel.saveInLocal(carModel)
                         }
+                    } else {
+                        val snackBar = Snackbar.make(
+                            binding.rootView,
+                            getString(R.string.label_no_data),
+                            Snackbar.LENGTH_INDEFINITE
+                        )
+                        snackBar.setAction(
+                            getString(R.string.label_ok)
+                        ) { snackBar.dismiss() }
+                        snackBar.show()
                     }
                 }
                 Status.ERROR -> {
                     // get data from local database
-                    viewModel.getCarListFromLocalDatabase()
+                    if (adapter.carList.isEmpty()) {
+                        viewModel.getCarListFromLocalDatabase()
+                    }
                     when (result?.error) {
                         is IOException -> {
                             val snackBar = Snackbar.make(

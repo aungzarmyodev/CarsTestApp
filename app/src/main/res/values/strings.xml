@@ -5,4 +5,5 @@
     <string name="label_no_network_error">Please check your internet connection.</string>
     <string name="label_ok">OK</string>
     <string name="label_click_car_item">Welcome from next stage.</string>
+    <string name="label_no_data">No data</string>
 </resources>
