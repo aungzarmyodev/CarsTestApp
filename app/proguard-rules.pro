@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** {*; }
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes *Annotation*
+-keep class okhttp3.** {*; }
+-keep interface okhttp3.** {*; }
+-dontwarn okhttp3.**
+-keep class com.google.gson.stream.** {*; }
+-keepclassmembers class com.sevenpeakssoftware.aungzarmyo.car_main_home.** {<fields>;}
+-keepclassmembers class com.sevenpeakssoftware.aungzarmyo.local_database.** {<fields>;}
+-keepclassmembers class com.sevenpeakssoftware.aungzarmyo.network.** {<fields>;}
+-keepclassmembers class com.sevenpeakssoftware.aungzarmyo.utils.** {<fields>;}
+
+
+
